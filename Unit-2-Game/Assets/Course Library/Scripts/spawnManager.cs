@@ -11,6 +11,7 @@ public class spawnManager : MonoBehaviour
     int startTime = 2;
     float intervals = 2f;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,10 +24,17 @@ public class spawnManager : MonoBehaviour
         
     }
 
-    void spawnAnimals()
+    public void spawnAnimals()
     {
         int animalIndex = Random.Range(0, animalPrefabs.Length);
         int randomRange = Random.Range(xRange2, xRange1);
         Instantiate(animalPrefabs[animalIndex], new Vector3(randomRange, 0, 20), animalPrefabs[animalIndex].transform.rotation);
+
     }
+
+    void pauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
 }
