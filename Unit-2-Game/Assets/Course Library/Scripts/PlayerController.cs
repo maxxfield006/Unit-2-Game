@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     float horizontalInput;
-    public int speed;
+    float verticalInput;
+    public int speedH;
+    public int speedV;
     int xRange = 20;
 
     public GameObject foodPrefab;
@@ -29,14 +31,30 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(-20, transform.position.y, transform.position.y);
         }
 
+        boundries();
+
         //movement
         horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
+        verticalInput = Input.GetAxis("Vertical");
+        transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speedH);
+        transform.Translate(Vector3.forward * verticalInput * Time.deltaTime * speedV);
 
         //food shooter
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Instantiate(foodPrefab, transform.position, foodPrefab.transform.rotation);
+            Instantiate(foodPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1), foodPrefab.transform.rotation);
+        }
+    }
+    
+    void boundries()
+    {
+        if (transform.position.z < -2)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        }
+        if (transform.position.z > 10)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         }
     }
 }
